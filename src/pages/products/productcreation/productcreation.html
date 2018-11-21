@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            New product
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)='createProduct()'>
+            <ion-icon name="checkmark"></ion-icon>
+        </button>
+
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-input placeholder="Product title (required)" type="text" [(ngModel)]="product_title"></ion-input>
+    <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description"></ion-textarea>
+    <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image"></ion-input>
+    <ion-textarea placeholder="Here is your stock" [(ngModel)]="product_stock"></ion-textarea>
+</ion-content>
