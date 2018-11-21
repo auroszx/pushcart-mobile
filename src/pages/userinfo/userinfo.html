@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title *ngIf="!editing">
+      {{user_username}}'s profile
+    </ion-title>
+    <ion-title *ngIf="editing">
+      Edit your profile
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toggleEdit()" *ngIf="!editing">
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="deleteUser()" *ngIf="!editing">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="editUser()" *ngIf="editing">
+  	    <ion-icon name="checkmark"></ion-icon>
+  	  </button>
+
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">Username</ion-label>
+      <ion-input placeholder="Do you really want to change it?" type="text" [(ngModel)]="username" readonly="!editing" ng-if="editing"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="signup">
+      <ion-label color="primary">Full name</ion-label>
+      <ion-input placeholder="E.g.: John Doe" type="text" [(ngModel)]="fullname" readonly="!editing"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="signup">
+      <ion-label color="primary">Email</ion-label>
+      <ion-input placeholder="E.g.: john.doe@example.com" type="email" [(ngModel)]="email" readonly="!editing"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label color="primary">Password</ion-label>
+      <ion-input placeholder="Leave blank to keep it unchanged" type="password" [(ngModel)]="password" readonly="!editing"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <br/>
+  <p>Careful! This action cant be undone!</p>
+  <button ion-button color="danger">Danger</button>
+
+</ion-content>
