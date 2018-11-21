@@ -65,5 +65,37 @@ export class UserProvider {
     return this.http.get(this.endpointUrl+'/user', httpOptions);
   }
 
+  deleteUser() {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem("token"),
+        'Content-Type':'application/json'
+      })
+    };
+
+    return this.http.delete(this.endpointUrl+'/user/delete', httpOptions);
+
+  }
+
+  updateUser(username, fullname, email, password) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem("token"),
+        'Content-Type':'application/json'
+      })
+    };
+
+    let data = {
+        username: username,
+        fullname: fullname,
+        email: email,
+        password: password
+    };
+
+    return this.http.post(this.endpointUrl+'/user/create', JSON.stringify(data), httpOptions);
+  }
+
 
 }

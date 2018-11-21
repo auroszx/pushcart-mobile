@@ -11,7 +11,8 @@ import { NoteDetail } from '../pages/notedetail/notedetail';
 import { NoteCreation } from '../pages/notecreation/notecreation';
 import { UserProvider } from '../providers/user/user';
 import { HttpClientModule } from '@angular/common/http';
-import { NotesProvider } from '../providers/notes/notes'; 
+import { NotesProvider } from '../providers/notes/notes';
+import { UserInformation } from '../pages/userinfo/userinfo';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NotesProvider } from '../providers/notes/notes';
     WelcomePage,
     NoteList,
     NoteDetail,
-    NoteCreation
+    NoteCreation,
+    UserInformation
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { NotesProvider } from '../providers/notes/notes';
     WelcomePage,
     NoteList,
     NoteDetail,
-    NoteCreation
+    NoteCreation,
+    UserInformation
   ],
   providers: [
     StatusBar,
