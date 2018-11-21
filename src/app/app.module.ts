@@ -6,20 +6,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { WelcomePage } from '../pages/welcome/welcome';
-import { NoteList }  from '../pages/notelist/notelist';
-import { NoteDetail } from '../pages/notedetail/notedetail'; 
-import { NoteCreation } from '../pages/notecreation/notecreation';
+import { ProductList }  from '../pages/products/productlist/productlist';
+import { ProductDescription } from '../pages/products/productdescription/productdescription'; 
+import { ProductCreation } from '../pages/products/productcreation/productcreation';
 import { UserProvider } from '../providers/user/user';
 import { HttpClientModule } from '@angular/common/http';
-import { NotesProvider } from '../providers/notes/notes'; 
+import { ProductsProvider } from '../providers/products/products'; 
 
 @NgModule({
   declarations: [
     MyApp,
     WelcomePage,
-    NoteList,
-    NoteDetail,
-    NoteCreation
+    ProductList,
+    ProductDescription,
+    ProductCreation
   ],
   imports: [
     BrowserModule,
@@ -30,16 +30,16 @@ import { NotesProvider } from '../providers/notes/notes';
   entryComponents: [
     MyApp,
     WelcomePage,
-    NoteList,
-    NoteDetail,
-    NoteCreation
+    ProductList,
+    ProductDescription,
+    ProductCreation
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
-    NotesProvider
+    ProductsProvider
   ]
 })
 export class AppModule {}
