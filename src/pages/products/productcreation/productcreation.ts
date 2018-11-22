@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-//import { NavParams } from 'ionic-angular';
-import { ProductsProvider } from '../../providers/products/products';
+import { ProductsProvider } from '../../../providers/products/products';
 
 @Component({
   selector: 'productcreation',

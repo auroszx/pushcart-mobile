@@ -6,13 +6,13 @@
         </ion-title>
 
         <ion-buttons end>
-            <button ion-button icon-only(click)="toggleEdit()" *ngIf="!editing">
+            <button ion-button icon-only (click)="toggleEdit()" *ngIf="!editing">
                 <ion-icon name="create"></ion-icon>
             </button>
             <button ion-button icon-only (click)="deleteProduct()" *ngIf="!editing">
                 <ion-icon name="trash"></ion-icon>
             </button>
-            <button ion-button icon-only (click)="editProduct()" *ngIf="!editing">
+            <button ion-button icon-only (click)="editProduct()" *ngIf="editing">
                 <ion-icon name="checkmark"></ion-icon>
             </button>
         </ion-buttons>
@@ -22,9 +22,8 @@
 
 
 <ion-content padding>
-    <p *ngIf="!editing">{{product_description}}</p>
     <ion-input placeholder="Product title (required)" type="text" [(ngModel)]="product_title" *ngIf="editing"></ion-input>
-    <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description" *ngIf="editing"></ion-textarea>
-    <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image" *ngIf="editing"></ion-input>
-    <ion-textarea placeholder="Here is your stock" [(ngModel)]="product_stock" *ngIf="editing"></ion-textarea>
+    <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description" readonly="editing"></ion-textarea>
+    <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image" readonly="editing"></ion-input>
+    <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>
 </ion-content>

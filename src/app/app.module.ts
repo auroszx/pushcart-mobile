@@ -13,6 +13,7 @@ import { UserProvider } from '../providers/user/user';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsProvider } from '../providers/products/products'; 
 import { UserInformation } from '../pages/userinfo/userinfo';
+import { MainMenu } from '../pages/mainmenu/mainmenu';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { UserInformation } from '../pages/userinfo/userinfo';
     ProductList,
     ProductDescription,
     ProductCreation,
-    UserInformation
+    UserInformation,
+    MainMenu
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { UserInformation } from '../pages/userinfo/userinfo';
     ProductList,
     ProductDescription,
     ProductCreation,
-    UserInformation
+    UserInformation,
+    MainMenu
   ],
   providers: [
     StatusBar,

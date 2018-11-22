@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
-import { ProductsProvider } from '../../providers/products/products';
+import { ProductsProvider } from '../../../providers/products/products';
 
 @Component({
   selector: 'productdescription',
@@ -15,13 +15,13 @@ export class ProductDescription {
   product_title: String;
   product_description: String;
   product_image: String;
-  product_stock: String;
+  product_stock: number;
 
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider, private navParams: NavParams) {
-    this.products.getProductDescription(this.navParams.get('product_id')).subscribe(res => {
+    this.products.getProductDetail(this.navParams.get('product_id')).subscribe(res => {
       this.response = res;
       this.product_title = this.response[0].product_title;
-      this.product_description = this.response[0].product_description;
+      this.product_description = this.response[0].product_desc;
       this.product_image = this.response[0].product_image;
       this.product_stock = this.response[0].product_stock;
     });

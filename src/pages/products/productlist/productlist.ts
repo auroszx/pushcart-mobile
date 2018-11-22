@@ -3,9 +3,11 @@ import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { ProductCreation } from '../productcreation/productcreation';
 import { ProductDescription } from '../productdescription/productdescription';
-import { WelcomePage } from '../welcome/welcome';
-import { ProductsProvider } from '../../providers/products/products';
-import { UserProvider } from '../../providers/user/user';
+import { WelcomePage } from '../../welcome/welcome';
+import { ProductsProvider } from '../../../providers/products/products';
+import { UserProvider } from '../../../providers/user/user';
+import { PopoverController } from 'ionic-angular';
+import { MainMenu } from '../../../pages/mainmenu/mainmenu';
 
 @Component({
   selector: 'productlist',
@@ -13,19 +15,17 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class ProductList {
 
-  notelist: any;
+  search: string = "";
+  productlist: any;
   response: any;
-  fullname: string;
 
-  constructor(public navCtrl: NavController, private products: ProductsProvider, private toastCtrl: ToastController, private user: UserProvider) {
-    this.user.getUserData().subscribe(res => {
+  constructor(public navCtrl: NavController, private products: ProductsProvider, 
+              private toastCtrl: ToastController, private user: UserProvider, 
+              private popoverCtrl: PopoverController) {
+
+    this.products.getAllProducts(this.search).subscribe(res => {
       this.response = res;
-      this.fullname = this.response[0].user_fullname;
-
-      this.products.getAllProducts().subscribe(res => {
-        this.response = res;
-        this.notelist = this.response;
-      });
+      this.productlist = this.response;
     });
   }
 
@@ -43,6 +43,12 @@ export class ProductList {
     this.getProducts();
   }
 
+  showMenu(event) {
+    let popover = this.popoverCtrl.create(MainMenu);
+    popover.present({
+      ev: event
+    });
+  }
 
   createProduct() {
     this.navCtrl.push(ProductCreation);
@@ -52,19 +58,14 @@ export class ProductList {
     this.navCtrl.push(ProductDescription, { product_id: product_id });
   }
 
-  logout() {
-    localStorage.removeItem("token");
-    this.navCtrl.setRoot(WelcomePage)
-  }
-
   getProducts() {
-    this.products.getAllProducts().subscribe(res => {
+    this.products.getAllProducts(this.search).subscribe(res => {
       this.response = res;
       this.productlist = this.response;
     });
   }
 
-  deleteProducto(producto_id) {
+  deleteProducto(product_id) {
     this.products.deleteProduct(product_id).subscribe(res => {
       this.getProducts();
     });

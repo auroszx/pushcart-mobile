@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /*
-  Generated class for the NotesProvider provider.
+  Generated class for the ProductsProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
@@ -10,12 +10,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ProductsProvider {
 
-	token: string = undefined;
-	endpointUrl: string;
+	private endpointUrl: string;
 
   	constructor(public http: HttpClient) {
     	this.endpointUrl = 'http://'+ window.location.hostname + ':3000';
-    	console.log(this.endpointUrl);
   	}
 
 	getProductDetail(product_id) {
@@ -44,9 +42,9 @@ export class ProductsProvider {
 	    let data = {
 	        product_id: product_id,
 	        product_title: product_title,
-	        product_description: product_description,
-					product_image: product_image,
-					product_stock: product_stock
+	        product_desc: product_description,
+			product_image: product_image,
+			product_stock: product_stock
 	    };
 
 	    return this.http.put(this.endpointUrl+'/products/update', JSON.stringify(data), httpOptions);
@@ -77,13 +75,13 @@ export class ProductsProvider {
 
 	    let data = {
 	        product_title: product_title,
-	        product_description: product_description
+	        product_desc: product_description
 	    };
 
 	    return this.http.post(this.endpointUrl+'/products/create', JSON.stringify(data), httpOptions);
 	}
 
-	getAllProducts() {
+	getAllProducts(search) {
 
 		const httpOptions = {
 	      headers: new HttpHeaders({
@@ -92,8 +90,13 @@ export class ProductsProvider {
 	        'Content-Type':'application/json'
 	      })
 	    };
-
-	    return this.http.get(this.endpointUrl+'/products/user', httpOptions);
+	    if (search.trim() == "") {
+	    	return this.http.get(this.endpointUrl+'/products/send_all', httpOptions);
+	    }
+	    else {
+	    	return this.http.get(this.endpointUrl+'/products/'+search, httpOptions);
+	    }
+	    
 
 	}
 

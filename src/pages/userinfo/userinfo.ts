@@ -13,6 +13,7 @@ export class UserInformation {
 
   editing: Boolean = false;
   response: any;
+  user_id: number;
   user_username: String;
   user_fullname: String;
   user_email: String;
@@ -21,6 +22,7 @@ export class UserInformation {
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private user: UserProvider, private navParams: NavParams) {
     this.user.getUserData().subscribe(res => {
       this.response = res;
+      this.user_id = this.response[0].user_id;
       this.user_username = this.response[0].user_username;
       this.user_fullname = this.response[0].user_fullname;
       this.user_email = this.response[0].user_email;
@@ -43,11 +45,12 @@ export class UserInformation {
 
   deleteUser() {
     this.user.deleteUser().subscribe(res => {
+      localStorage.removeItem("token");
       this.navCtrl.setRoot(WelcomePage);
     });
   }
 
-  editNote() {
+  editUser() {
     this.user.updateUser(this.user_username, this.user_fullname, this.user_email, this.user_password).subscribe(res => {
       this.toggleEdit();
     });

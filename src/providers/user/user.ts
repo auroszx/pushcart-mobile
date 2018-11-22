@@ -14,7 +14,6 @@ export class UserProvider {
 
   constructor(public http: HttpClient) {
     this.endpointUrl = 'http://'+ window.location.hostname + ':3000';
-    console.log(this.endpointUrl);
   }
 
   login(username, password) {
@@ -62,7 +61,18 @@ export class UserProvider {
       })
     };
 
-    return this.http.get(this.endpointUrl+'/user', httpOptions);
+    return this.http.get(this.endpointUrl+'/user/me', httpOptions);
+  }
+
+  getOtherUser(user_id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem("token"),
+        'Content-Type':'application/json'
+      })
+    };
+
+    return this.http.get(this.endpointUrl+'/user/'+user_id, httpOptions);
   }
 
   deleteUser() {
@@ -94,7 +104,7 @@ export class UserProvider {
         password: password
     };
 
-    return this.http.post(this.endpointUrl+'/user/create', JSON.stringify(data), httpOptions);
+    return this.http.put(this.endpointUrl+'/user/update', JSON.stringify(data), httpOptions);
   }
 
 
