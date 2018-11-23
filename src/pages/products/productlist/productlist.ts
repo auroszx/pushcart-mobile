@@ -65,7 +65,7 @@ export class ProductList {
     });
   }
 
-  deleteProducto(product_id) {
+  deleteProduct(product_id) {
     this.products.deleteProduct(product_id).subscribe(res => {
       this.getProducts();
     });
