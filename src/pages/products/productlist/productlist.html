@@ -8,6 +8,9 @@
             <!-- <button ion-button icon-only (click)="getProducts()">
                 <ion-icon name="refresh"></ion-icon>
             </button> -->
+            <button ion-button icon-only (click)="startSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>
             <button ion-button icon-only (click)="createProduct()">
                 <ion-icon name="add"></ion-icon>
             </button>
@@ -23,11 +26,18 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-searchbar *ngIf="showSearch"
+      [(ngModel)]="search"
+      showCancelButton="true"
+      (ionCancel)="hideSearch()"
+      (ionInput)="getProducts()">
+    </ion-searchbar>
     <ion-list *ngFor="let product of productlist">
         <ion-item (click)="editProduct(product.product_id)" *ngIf="productlist?.length > 0">
             <p><strong>{{product.product_title}}</strong></p>
             <p>{{product.product_desc}}</p>
         </ion-item>
     </ion-list>
-    <h4 *ngIf="productlist?.length == 0" text-center>You don't have any products.</h4>
+    <h4 *ngIf="productlist?.length == 0 && search == ''" text-center>You don't have any products.</h4>
+    <h4 *ngIf="productlist?.length == 0 && search != ''" text-center>No result for this search.</h4>
 </ion-content>

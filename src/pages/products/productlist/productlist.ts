@@ -3,9 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { ProductCreation } from '../productcreation/productcreation';
 import { ProductDescription } from '../productdescription/productdescription';
-import { WelcomePage } from '../../welcome/welcome';
 import { ProductsProvider } from '../../../providers/products/products';
-import { UserProvider } from '../../../providers/user/user';
 import { PopoverController } from 'ionic-angular';
 import { MainMenu } from '../../../pages/mainmenu/mainmenu';
 
@@ -18,10 +16,10 @@ export class ProductList {
   search: string = "";
   productlist: any;
   response: any;
+  showSearch: boolean = false;
 
   constructor(public navCtrl: NavController, private products: ProductsProvider, 
-              private toastCtrl: ToastController, private user: UserProvider, 
-              private popoverCtrl: PopoverController) {
+              private toastCtrl: ToastController, private popoverCtrl: PopoverController) {
 
     this.products.getAllProducts(this.search).subscribe(res => {
       this.response = res;
@@ -65,10 +63,14 @@ export class ProductList {
     });
   }
 
-  deleteProduct(product_id) {
-    this.products.deleteProduct(product_id).subscribe(res => {
-      this.getProducts();
-    });
+  hideSearch() {
+    this.showSearch = false;
+    this.search = "";
+    this.getProducts();
+  }
+
+  startSearch() {
+    this.showSearch = true;
   }
 
 
