@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-import { NavParams } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { WelcomePage } from '../welcome/welcome';
 
@@ -19,7 +18,7 @@ export class UserInformation {
   user_email: String;
   user_password: String = "";
 
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private user: UserProvider, private navParams: NavParams) {
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private user: UserProvider) {
     this.user.getUserData().subscribe(res => {
       this.response = res;
       this.user_id = this.response[0].user_id;

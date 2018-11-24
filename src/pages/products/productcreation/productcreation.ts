@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { ProductsProvider } from '../../../providers/products/products';
@@ -10,11 +10,12 @@ import { ProductsProvider } from '../../../providers/products/products';
 export class ProductCreation {
 
   response: any;
-  product_title: String = "";
-  product_description: String = "";
-  product_image: String = "";
-  product_stock: String = "";
+  product_title: string = "";
+  product_description: string = "";
+  product_image: any = "";
+  product_stock: number = 0;
 
+  @ViewChild('fileinput') fileinput: ElementRef;
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider) {
 
   }
@@ -30,7 +31,8 @@ export class ProductCreation {
   }
 
   createProduct() {
-    this.products.createProduct(this.product_title, this.product_description).subscribe(res => {
+    this.products.createProduct(this.product_title, this.product_description, this.product_image, this.product_stock).subscribe(res => {
+      this.response = res;
       if (this.response.status >= 400) {
         this.doToast(this.response.message);
       }
@@ -38,6 +40,24 @@ export class ProductCreation {
         this.navCtrl.pop();
       }
     });
+  }
+
+  fakeClick() {
+    this.fileinput.nativeElement.click();
+  }
+
+  setBase64Image(image) {
+    this.readImage(image.target);
+  }
+
+  readImage(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader = new FileReader();
+    myReader.onloadend = (e) => {
+      this.product_image = myReader.result;
+      //console.log(this.product_image);
+    }
+    myReader.readAsDataURL(file);
   }
 
 
