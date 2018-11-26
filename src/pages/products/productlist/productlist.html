@@ -33,10 +33,25 @@
       (ionInput)="getProducts()">
     </ion-searchbar>
     <ion-list *ngFor="let product of productlist">
-        <ion-item (click)="editProduct(product.product_id)" *ngIf="productlist?.length > 0">
-            <p><strong>{{product.product_title}}</strong></p>
-            <p>{{product.product_desc}}</p>
-        </ion-item>
+        <ion-row align-items-stretch>
+            <ion-col>
+                <img [src]="product.product_image"/>
+            </ion-col>
+            <ion-col>
+                <ion-item (click)="editProduct(product.product_id)" *ngIf="productlist?.length > 0">
+                    <p><strong>{{product.product_title}}</strong></p>
+                    <p>{{product.product_desc}}</p>
+                    <p>{{product.product_stock}} available</p>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-buttons end>
+                    <button ion-button (click)="addToCart()">
+                        <ion-icon name="add"></ion-icon>To cart
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        </ion-row>
     </ion-list>
     <h4 *ngIf="productlist?.length == 0 && search == ''" text-center>You don't have any products.</h4>
     <h4 *ngIf="productlist?.length == 0 && search != ''" text-center>No result for this search.</h4>

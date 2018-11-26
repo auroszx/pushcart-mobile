@@ -25,11 +25,13 @@
     <ion-input placeholder="Product title (required)" type="text" [(ngModel)]="product_title" *ngIf="editing"></ion-input>
     <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description" readonly="editing"></ion-textarea>
     <!-- <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image" readonly="editing"></ion-input> -->
-    <img style="left: 50%; right: 50%; height: 50%; width: auto;" [src]="product_image"/>
+    <ion-row>
+        <img [src]="product_image"/>
 
-    <div style="left: 50%; right: 50%;" *ngIf="editing">
-        <input #fileinput type="file" id="files" accept="image/*" (change)="setBase64Image($event)" style="display:none"/>
-            <button (click)="fakeClick()">Click me, your image is here</button>
-    </div>
+        <div *ngIf="editing">
+            <input #fileinput type="file" id="files" accept="image/*" (change)="setBase64Image($event)" style="display:none"/>
+                <button ion-button (click)="fakeClick()">Add image</button>
+        </div>
+    </ion-row>
     <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>
 </ion-content>

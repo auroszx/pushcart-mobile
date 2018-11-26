@@ -73,5 +73,13 @@ export class ProductList {
     this.showSearch = true;
   }
 
+  goToCart() {
+    this.doToast("Feature not yet implemented");
+  }
+
+  addToCart() {
+    this.doToast("Feature not yet implemented");
+  }
+
 
 }
