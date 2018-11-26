@@ -94,10 +94,10 @@ export class ProductsProvider {
 	      })
 	    };
 	    if (search.trim() == "") {
-	    	return this.http.get(this.endpointUrl+'/products/send_all', httpOptions);
+	    	return this.http.get(this.endpointUrl+'/products/search=send_all', httpOptions);
 	    }
 	    else {
-	    	return this.http.get(this.endpointUrl+'/products/'+search, httpOptions);
+	    	return this.http.get(this.endpointUrl+'/products/search='+search, httpOptions);
 	    }
 	    
 
