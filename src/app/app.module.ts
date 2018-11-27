@@ -15,6 +15,9 @@ import { ProductsProvider } from '../providers/products/products';
 import { UserInformation } from '../pages/userinfo/userinfo';
 import { MainMenu } from '../pages/mainmenu/mainmenu';
 
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -28,7 +31,9 @@ import { MainMenu } from '../pages/mainmenu/mainmenu';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    FormsModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

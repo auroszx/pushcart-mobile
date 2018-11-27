@@ -4,4 +4,9 @@ productdescription {
 		width: 20%; 
 		display: inline-block;
 	}
+
+	.comment-box {
+		overflow: scroll;
+		height: 220px;
+	}
 }

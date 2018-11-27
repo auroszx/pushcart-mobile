@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
@@ -19,8 +20,11 @@ export class ProductDescription {
   product_stock: number;
   comment_content: String;
   @ViewChild('fileinput') fileinput: ElementRef;
+  comments = [];
+  message: String;
+  url: String = 'http://'+ window.location.hostname + ':3000';
 
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider, private navParams: NavParams) {
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider, private navParams: NavParams, public http : HttpClient) {
     this.products.getProductDetail(this.navParams.get('product_id')).subscribe(res => {
       this.response = res;
       this.product_title = this.response[0].product_title;
@@ -30,6 +34,14 @@ export class ProductDescription {
       this.comment_content = this.response[0].comment_content;
     });
   }
+
+  sendComment(){
+        if(this.message != ''){
+          this.http.post(this.url, {message : this.message}).subscribe((res : any) => {
+            this.message = '';
+          })
+        }
+      }
 
   doToast(message) {
     let toast = this.toastCtrl.create({
