@@ -18,13 +18,18 @@
 
     <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description"></ion-textarea>
 
-    <!-- <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image"></ion-input> -->
-    <ion-row>
-        <img [src]="product_image"/>
-        <div>
-            <input #fileinput type="file" id="files" accept="image/*" (change)="setBase64Image($event)" style="display:none"/>
-                <button ion-button (click)="fakeClick()">Add image</button>
+    <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image"></ion-input>
+
+    <div>
+        <input type="file" id="files" style="display:none"/>
+            <button onclick="click_the_button(files);">Click me, your image is here</button>
+            <button ion-button icon-only (click)="click_me(files);">Click me, your image is here</button>
         </div>
-    </ion-row>
+        <script>
+            function click_me(btn){
+               btn.click();
+             }
+        </script>
+
     <ion-textarea placeholder="Here is your stock" [(ngModel)]="product_stock"></ion-textarea>
 </ion-content>
