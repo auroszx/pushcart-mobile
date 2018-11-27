@@ -53,7 +53,7 @@ deleteComment(comment_id) {
 	    return this.http.delete(this.endpointUrl+'/comments/delete/'+comment_id, httpOptions);
 	}
 
-    createComment(comment_content) {
+    createComment(product_id, comment_content) {
 
 	    const httpOptions = {
 	      headers: new HttpHeaders({
@@ -64,6 +64,7 @@ deleteComment(comment_id) {
 	    };
 
 	    let data = {
+					product_id: product_id,
 	        comment_content: comment_content
 	    };
 

@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ProductsProvider } from '../../../providers/products/products';
+import { CommentsProvider } from '../../../providers/comments/comments';
 
 @Component({
   selector: 'productdescription',
@@ -16,6 +17,7 @@ export class ProductDescription {
   product_description: String;
   product_image: string;
   product_stock: number;
+  comment_content: String;
   @ViewChild('fileinput') fileinput: ElementRef;
 
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider, private navParams: NavParams) {
@@ -25,6 +27,7 @@ export class ProductDescription {
       this.product_description = this.response[0].product_desc;
       this.product_image = this.response[0].product_image;
       this.product_stock = this.response[0].product_stock;
+      this.comment_content = this.response[0].comment_content;
     });
   }
 
