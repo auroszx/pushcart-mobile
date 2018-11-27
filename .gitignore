@@ -7,3 +7,6 @@ bower_components
 .idea
 .sourcemaps
 www
+platforms/android/.gradle
+platforms/android/CordovaLib/build
+platforms/android/app/build

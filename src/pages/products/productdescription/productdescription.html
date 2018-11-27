@@ -33,22 +33,20 @@
                 <button ion-button (click)="fakeClick()">Add image</button>
         </div>
     </ion-row>
+    <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>
     <div class="comment-box">
-          <ion-card *ngFor="let your comment">
+          <ion-card *ngFor="let comment of comments">
             <ion-card-content>
-                  <strong>{{comment.message}}</strong>
+                  <strong>{{comment.product_comment}}</strong>
                   <p>
-                   {{comment.timeStamp | date : 'H:mm a'}}
+                   {{comment.user_username}}
                   </p>
             </ion-card-content>
 
           </ion-card>
         </div>
-      <ion-footer padding>
-        <ion-textarea [(ngModel)]="message" type="text" placeholder="Comment ... "></ion-textarea>
+      <ion-footer padding ng-if="!editing">
+        <ion-textarea [(ngModel)]="new_comment" type="text" placeholder="Comment ... " ng-if=""></ion-textarea>
         <button ion-button small float-right round (click)="sendComment()">Send</button>
       </ion-footer>
-
-    </ion-content>
-    <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>
 </ion-content>
