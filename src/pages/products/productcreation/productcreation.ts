@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { ProductsProvider } from '../../../providers/products/products';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @Component({
   selector: 'productcreation',
@@ -16,7 +17,8 @@ export class ProductCreation {
   product_stock: number = 0;
 
   @ViewChild('fileinput') fileinput: ElementRef;
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider) {
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider,
+              private imagePicker: ImagePicker) {
 
   }
 
@@ -58,6 +60,32 @@ export class ProductCreation {
       //console.log(this.product_image);
     }
     myReader.readAsDataURL(file);
+  }
+
+  pickImage() {
+    this.imagePicker.hasReadPermission().then((hasPermission) => {
+      if (hasPermission) {
+        this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 1 }).then((results) => {
+          for (var i = 0; i < results.length; i++) {
+              this.product_image = results;
+          }
+        }, (err) => { });
+      }
+      else {
+        this.imagePicker.requestReadPermission().then((result) => {
+          if (result) {
+            console.log(result);
+            this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 1 }).then((results) => {
+              for (var i = 0; i < results.length; i++) {
+                  this.product_image = results;
+              }
+            }, (err) => { });
+          }
+        });
+      }
+        
+    })
+      
   }
 
 

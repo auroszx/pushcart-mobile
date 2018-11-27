@@ -17,7 +17,7 @@
        under the License.
  */
 
-package io.ionic.starter;
+package ve.auroszx.pushcart.mobile;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

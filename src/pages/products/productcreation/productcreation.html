@@ -22,8 +22,8 @@
     <ion-row>
         <img [src]="product_image"/>
         <div>
-            <input #fileinput type="file" id="files" accept="image/*" (change)="setBase64Image($event)" style="display:none"/>
-                <button ion-button (click)="fakeClick()">Add image</button>
+            <!-- <input #fileinput type="file" id="files" accept="image/*" (change)="setBase64Image($event)" style="display:none"/> -->
+                <button ion-button (click)="pickImage()">Add image</button>
         </div>
     </ion-row>
     <ion-textarea placeholder="Here is your stock" [(ngModel)]="product_stock"></ion-textarea>

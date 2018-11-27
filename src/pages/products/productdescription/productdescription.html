@@ -30,7 +30,7 @@
 
         <div *ngIf="editing">
             <input #fileinput type="file" id="files" accept="image/*" (change)="setBase64Image($event)" style="display:none"/>
-                <button ion-button (click)="fakeClick()">Add image</button>
+                <button ion-button (click)="fakeClick()">Change image</button>
         </div>
     </ion-row>
     <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>

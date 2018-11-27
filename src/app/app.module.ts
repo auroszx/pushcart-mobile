@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductsProvider } from '../providers/products/products'; 
 import { UserInformation } from '../pages/userinfo/userinfo';
 import { MainMenu } from '../pages/mainmenu/mainmenu';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MainMenu } from '../pages/mainmenu/mainmenu';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
-    ProductsProvider
+    ProductsProvider,
+    ImagePicker,
+    NativeStorage
   ]
 })
 export class AppModule {}

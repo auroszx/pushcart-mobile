@@ -13,14 +13,14 @@ export class ProductsProvider {
 	private endpointUrl: string;
 
   	constructor(public http: HttpClient) {
-    	this.endpointUrl = 'http://'+ window.location.hostname + ':3000';
+    	this.endpointUrl = 'http://192.168.12.1:3000';
+    	console.log(this.endpointUrl);
   	}
 
 	getProductDetail(product_id) {
 
 	    const httpOptions = {
 	      headers: new HttpHeaders({
-	        //'Authorization': this.token,
 	        'Authorization': localStorage.getItem("token"),
 	        'Content-Type':'application/json'
 	      })
