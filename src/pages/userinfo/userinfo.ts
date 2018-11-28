@@ -19,7 +19,11 @@ export class UserInformation {
   user_password: String = "";
 
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private user: UserProvider) {
-    this.user.getUserData().subscribe(res => {
+    this.getUser();
+  }
+
+  async getUser() {
+    (await this.user.getUserData()).subscribe(res => {
       this.response = res;
       this.user_id = this.response[0].user_id;
       this.user_username = this.response[0].user_username;
@@ -42,15 +46,15 @@ export class UserInformation {
     this.editing = !this.editing;
   }
 
-  deleteUser() {
-    this.user.deleteUser().subscribe(res => {
+  async deleteUser() {
+    (await this.user.deleteUser()).subscribe(res => {
       localStorage.removeItem("token");
       this.navCtrl.setRoot(WelcomePage);
     });
   }
 
-  editUser() {
-    this.user.updateUser(this.user_username, this.user_fullname, this.user_email, this.user_password).subscribe(res => {
+  async editUser() {
+    (await this.user.updateUser(this.user_username, this.user_fullname, this.user_email, this.user_password)).subscribe(res => {
       this.toggleEdit();
     });
   }

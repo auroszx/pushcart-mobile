@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { WelcomePage } from '../pages/welcome/welcome';
@@ -14,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductsProvider } from '../providers/products/products'; 
 import { UserInformation } from '../pages/userinfo/userinfo';
 import { MainMenu } from '../pages/mainmenu/mainmenu';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -44,11 +45,12 @@ import { FormsModule } from '@angular/forms';
     MainMenu
   ],
   providers: [
-    StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
-    ProductsProvider
+    ProductsProvider,
+    ImagePicker,
+    NativeStorage
   ]
 })
 export class AppModule {}

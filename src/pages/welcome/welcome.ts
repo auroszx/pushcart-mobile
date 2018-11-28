@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { ToastController } from 'ionic-angular';
 import { ProductList } from '../products/productlist/productlist';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
   selector: 'welcome',
@@ -19,16 +20,31 @@ export class WelcomePage {
   signup: Boolean = false;
   endpoint: string = localStorage.getItem("endpoint");
 
-  constructor(public navCtrl: NavController, public user: UserProvider, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public user: UserProvider, private toastCtrl: ToastController, private nativeStorage: NativeStorage) {
   	//Check if user was previously logged in.
-  	if (localStorage.getItem("token")) {
-  		console.log("Already logged in.");
-      this.navCtrl.setRoot(ProductList);
-  	}
-  	else {
-  		console.log("Not logged in yet.");
-  	}
+  	// this.nativeStorage.getItem("token").then((data) =>
+   //  {
+   //    console.log("Already logged in.");
+   //    this.navCtrl.setRoot(ProductList);
+   //  },
+   //  (error) => {
+   //    console.log("Not logged in yet");
+   //  });
 
+  }
+
+  ionViewDidLoad() {
+    this.nativeStorage.getItem("token").then((data) =>
+    {
+      console.log("Already logged in.");
+      this.navCtrl.setRoot(ProductList).then((val) => {
+        console.log(val);
+      },
+      err => console.log(err));
+    },
+    (error) => {
+      console.log("Not logged in yet");
+    });
   }
 
   doToast(message) {
@@ -45,12 +61,15 @@ export class WelcomePage {
     this.user.login(this.username, this.password).subscribe(res => {
       console.log(res);
       this.response = res;
-      localStorage.setItem("token", this.response.token);
       if (this.response.status >= 400) {
         this.doToast(this.response.message);
       }
       if (this.response.status == 200) {
-        this.navCtrl.setRoot(ProductList);
+        this.nativeStorage.setItem("token", this.response.token).then(() => {
+          this.navCtrl.setRoot(ProductList).then((val) => console.log(val),
+            (err) => console.log(err));
+        });
+        
       }
     });
 
@@ -71,10 +90,6 @@ export class WelcomePage {
 
   toggleView() {
     this.signup = !this.signup;
-  }
-
-  setEndpoint() {
-    localStorage.setItem("endpoint", this.endpoint);
   }
 
 

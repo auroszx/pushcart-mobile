@@ -7,8 +7,23 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-device": {
+    "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-nativestorage": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-multidex": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-telerik-imagepicker": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
     }
   },
   "dependent_plugins": {}

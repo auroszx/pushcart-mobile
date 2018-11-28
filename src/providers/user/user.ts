@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 /*
   Generated class for the UserProvider provider.
@@ -12,8 +13,10 @@ export class UserProvider {
 
   private endpointUrl: string;
 
-  constructor(public http: HttpClient) {
-    this.endpointUrl = 'http://'+ window.location.hostname + ':3000';
+  constructor(public http: HttpClient, private nativeStorage: NativeStorage) {
+    // this.endpointUrl = 'http://'+ window.location.hostname + ':3000';
+    this.endpointUrl = 'http://192.168.1.25:3000';
+    console.log(this.endpointUrl);
   }
 
   login(username, password) {
@@ -52,11 +55,11 @@ export class UserProvider {
     return this.http.post(this.endpointUrl+'/user/create', JSON.stringify(data), httpOptions);
   }
 
-  getUserData() {
+  async getUserData() {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': localStorage.getItem("token"),
+        'Authorization': await this.nativeStorage.getItem("token"),
         'Content-Type':'application/json'
       })
     };
@@ -64,10 +67,10 @@ export class UserProvider {
     return this.http.get(this.endpointUrl+'/user/me', httpOptions);
   }
 
-  getOtherUser(user_id) {
+  async getOtherUser(user_id) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': localStorage.getItem("token"),
+        'Authorization': await this.nativeStorage.getItem("token"),
         'Content-Type':'application/json'
       })
     };
@@ -75,11 +78,11 @@ export class UserProvider {
     return this.http.get(this.endpointUrl+'/user/'+user_id, httpOptions);
   }
 
-  deleteUser() {
+  async deleteUser() {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': localStorage.getItem("token"),
+        'Authorization': await this.nativeStorage.getItem("token"),
         'Content-Type':'application/json'
       })
     };
@@ -88,11 +91,11 @@ export class UserProvider {
 
   }
 
-  updateUser(username, fullname, email, password) {
+  async updateUser(username, fullname, email, password) {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': localStorage.getItem("token"),
+        'Authorization': await this.nativeStorage.getItem("token"),
         'Content-Type':'application/json'
       })
     };

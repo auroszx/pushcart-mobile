@@ -38,10 +38,10 @@
                 <img [src]="product.product_image"/>
             </ion-col>
             <ion-col>
-                <ion-item (click)="editProduct(product.product_id)" *ngIf="productlist?.length > 0">
-                    <p><strong>{{product.product_title}}</strong></p>
-                    <p>{{product.product_desc}}</p>
-                    <p>{{product.product_stock}} available</p>
+                <ion-item (click)="editProduct(product.product_id)" *ngIf="productlist.length > 0">
+                    <p class="kindabigger"><strong>{{product.product_title}}</strong></p>
+                    <p class="kindabigger">{{product.product_desc}}</p>
+                    <p class="kindasmall">{{product.product_stock}} available</p>
                 </ion-item>
             </ion-col>
             <ion-col>
@@ -53,6 +53,6 @@
             </ion-col>
         </ion-row>
     </ion-list>
-    <h4 *ngIf="productlist?.length == 0 && search == ''" text-center>You don't have any products.</h4>
-    <h4 *ngIf="productlist?.length == 0 && search != ''" text-center>No result for this search.</h4>
+    <h4 *ngIf="productlist.length == 0 && search == ''" text-center>You don't have any products.</h4>
+    <h4 *ngIf="productlist.length == 0 && search != ''" text-center>No result for this search.</h4>
 </ion-content>
