@@ -36,19 +36,22 @@
         </div>
     </ion-row>
     <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>
+    
     <div class="comment-box">
-          <ion-card *ngFor="let comment of comments">
+        <ion-card *ngFor="let comment of comments">
             <ion-card-content>
-                  <strong>{{comment.product_comment}}</strong>
-                  <p>
-                   {{comment.user_username}}
-                  </p>
+                <strong>{{comment.product_comment}}</strong>
+                <p>
+                    {{comment.user_username}}
+                </p>
             </ion-card-content>
 
-          </ion-card>
-        </div>
-      <ion-footer padding ng-if="!editing">
-        <ion-textarea [(ngModel)]="new_comment" type="text" placeholder="Comment ... " ng-if=""></ion-textarea>
-        <button ion-button small float-right round (click)="sendComment()">Send</button>
-      </ion-footer>
+        </ion-card>
+    </div>
+      
 </ion-content>
+
+<ion-footer padding ng-if="!editing">
+    <ion-textarea [(ngModel)]="new_comment" type="text" placeholder="Comment ... " ng-if=""></ion-textarea>
+    <button ion-button small float-right round (click)="sendComment()">Send</button>
+</ion-footer>

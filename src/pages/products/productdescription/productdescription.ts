@@ -18,24 +18,26 @@ export class ProductDescription {
   product_title: String;
   product_description: String;
   product_stock: number;
+  product_image: any = "";
   comment_content: String;
-  @ViewChild('fileinput') fileinput: ElementRef;
   comments = [];
   message: String;
-  url: String = 'http://'+ window.location.hostname + ':3000';
+  url: String = 'http://'+ window.location.hostname + ':3000'; //Wat?
 
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider,
                private navParams: NavParams, private imagePicker: ImagePicker) {
     this.setProductInfo();
   }
 
-  sendComment(){
-        if(this.message != ''){
-          this.http.post(this.url, {message : this.message}).subscribe((res : any) => {
-            this.message = '';
-          })
-        }
-      }
+  // Should be in provider
+  // 
+  // sendComment(){
+  //       if(this.message != ''){
+  //         this.http.post(this.url, {message : this.message}).subscribe((res : any) => {
+  //           this.message = '';
+  //         })
+  //       }
+  //     }
 
   doToast(message) {
     let toast = this.toastCtrl.create({
