@@ -93,6 +93,9 @@ ext {
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../cordova-plugin-telerik-imagepicker/starter-ignorelinterrors.gradle"
 apply from: "../cordova-plugin-telerik-imagepicker/starter-androidtarget.gradle"
+apply from: "../cordova-plugin-multidex/mobile-build.gradle"
+apply from: "../cordova-plugin-telerik-imagepicker/mobile-ignorelinterrors.gradle"
+apply from: "../cordova-plugin-telerik-imagepicker/mobile-androidtarget.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -267,7 +270,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
-    compile "com.android.support:support-annotations:27.+"
     compile "com.android.support:appcompat-v7:23+"
     // SUB-PROJECT DEPENDENCIES END
 }

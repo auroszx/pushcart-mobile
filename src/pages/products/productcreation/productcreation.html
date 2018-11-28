@@ -20,9 +20,8 @@
 
     <!-- <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image"></ion-input> -->
     <ion-row>
-        <img [src]="product_image"/>
+        <img [src]="product_image" *ngIf="product_image != ''" />
         <div>
-            <!-- <input #fileinput type="file" id="files" accept="image/*" (change)="setBase64Image($event)" style="display:none"/> -->
                 <button ion-button (click)="pickImage()">Add image</button>
         </div>
     </ion-row>

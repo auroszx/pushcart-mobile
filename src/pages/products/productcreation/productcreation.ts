@@ -16,7 +16,6 @@ export class ProductCreation {
   product_image: any = "";
   product_stock: number = 0;
 
-  @ViewChild('fileinput') fileinput: ElementRef;
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider,
               private imagePicker: ImagePicker) {
 
@@ -32,8 +31,8 @@ export class ProductCreation {
     toast.present();
   }
 
-  createProduct() {
-    this.products.createProduct(this.product_title, this.product_description, this.product_image, this.product_stock).subscribe(res => {
+  async createProduct() {
+    (await this.products.createProduct(this.product_title, this.product_description, this.product_image, this.product_stock)).subscribe(res => {
       this.response = res;
       if (this.response.status >= 400) {
         this.doToast(this.response.message);
@@ -44,32 +43,14 @@ export class ProductCreation {
     });
   }
 
-  fakeClick() {
-    this.fileinput.nativeElement.click();
-  }
-
-  setBase64Image(image) {
-    this.readImage(image.target);
-  }
-
-  readImage(inputValue: any): void {
-    var file:File = inputValue.files[0];
-    var myReader = new FileReader();
-    myReader.onloadend = (e) => {
-      this.product_image = myReader.result;
-      //console.log(this.product_image);
-    }
-    myReader.readAsDataURL(file);
-  }
-
   pickImage() {
     this.imagePicker.hasReadPermission().then((hasPermission) => {
       if (hasPermission) {
         this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 1 }).then((results) => {
           for (var i = 0; i < results.length; i++) {
-              this.product_image = results;
+              this.product_image = 'data:image/jpeg;base64,' + results[i];
           }
-        }, (err) => { });
+        }, (err) => { console.log(err) });
       }
       else {
         this.imagePicker.requestReadPermission().then((result) => {
@@ -77,9 +58,9 @@ export class ProductCreation {
             console.log(result);
             this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 1 }).then((results) => {
               for (var i = 0; i < results.length; i++) {
-                  this.product_image = results;
+                  this.product_image = 'data:image/jpeg;base64,' + results[i];
               }
-            }, (err) => { });
+            }, (err) => { console.log(err) });
           }
         });
       }

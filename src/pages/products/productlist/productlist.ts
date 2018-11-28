@@ -14,17 +14,14 @@ import { MainMenu } from '../../../pages/mainmenu/mainmenu';
 export class ProductList {
 
   search: string = "";
-  productlist: any;
+  productlist: any = [];
   response: any;
   showSearch: boolean = false;
 
   constructor(public navCtrl: NavController, private products: ProductsProvider, 
               private toastCtrl: ToastController, private popoverCtrl: PopoverController) {
 
-    this.products.getAllProducts(this.search).subscribe(res => {
-      this.response = res;
-      this.productlist = this.response;
-    });
+    this.getProducts();
   }
 
   doToast(message) {
@@ -56,8 +53,8 @@ export class ProductList {
     this.navCtrl.push(ProductDescription, { product_id: product_id });
   }
 
-  getProducts() {
-    this.products.getAllProducts(this.search).subscribe(res => {
+  async getProducts() {
+    (await this.products.getAllProducts(this.search)).subscribe(res => {
       this.response = res;
       this.productlist = this.response;
     });

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 /*
   Generated class for the ProductsProvider provider.
@@ -12,16 +13,16 @@ export class ProductsProvider {
 
 	private endpointUrl: string;
 
-  	constructor(public http: HttpClient) {
-    	this.endpointUrl = 'http://192.168.12.1:3000';
+  	constructor(public http: HttpClient, private nativeStorage: NativeStorage) {
+    	this.endpointUrl = 'http://192.168.1.25:3000';
     	console.log(this.endpointUrl);
   	}
 
-	getProductDetail(product_id) {
+	async getProductDetail(product_id) {
 
 	    const httpOptions = {
 	      headers: new HttpHeaders({
-	        'Authorization': localStorage.getItem("token"),
+	        'Authorization': await this.nativeStorage.getItem("token"),
 	        'Content-Type':'application/json'
 	      })
 	    };
@@ -29,12 +30,12 @@ export class ProductsProvider {
 	    return this.http.get(this.endpointUrl+'/products/by/'+product_id, httpOptions);
 	}
 
-	updateProduct(product_id, product_title, product_description, product_image, product_stock) {
+	async updateProduct(product_id, product_title, product_description, product_image, product_stock) {
 
 	    const httpOptions = {
 	      headers: new HttpHeaders({
 	        // 'Authorization': this.token,
-	        'Authorization': localStorage.getItem("token"),
+	        'Authorization': await this.nativeStorage.getItem("token"),
 	        'Content-Type':'application/json'
 	      })
 	    };
@@ -50,12 +51,12 @@ export class ProductsProvider {
 	    return this.http.put(this.endpointUrl+'/products/update', JSON.stringify(data), httpOptions);
 	}
 
-	deleteProduct(product_id) {
+	async deleteProduct(product_id) {
 
 		const httpOptions = {
 	      headers: new HttpHeaders({
 	        // 'Authorization': this.token,
-	        'Authorization': localStorage.getItem("token"),
+	        'Authorization': await this.nativeStorage.getItem("token"),
 	        'Content-Type':'application/json'
 	      })
 	    };
@@ -63,12 +64,12 @@ export class ProductsProvider {
 	    return this.http.delete(this.endpointUrl+'/products/delete/'+product_id, httpOptions);
 	}
 
-	createProduct(product_title, product_description, product_image, product_stock) {
+	async createProduct(product_title, product_description, product_image, product_stock) {
 
 	    const httpOptions = {
 	      headers: new HttpHeaders({
 	        // 'Authorization': this.token,
-	        'Authorization': localStorage.getItem("token"),
+	        'Authorization': await this.nativeStorage.getItem("token"),
 	        'Content-Type':'application/json'
 	      })
 	    };
@@ -84,12 +85,12 @@ export class ProductsProvider {
 	    return this.http.post(this.endpointUrl+'/products/create', JSON.stringify(data), httpOptions);
 	}
 
-	getAllProducts(search) {
+	async getAllProducts(search) {
 
 		const httpOptions = {
 	      headers: new HttpHeaders({
 	        // 'Authorization': this.token,
-	        'Authorization': localStorage.getItem("token"),
+	        'Authorization': await this.nativeStorage.getItem("token"),
 	        'Content-Type':'application/json'
 	      })
 	    };

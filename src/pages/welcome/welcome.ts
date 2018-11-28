@@ -4,7 +4,6 @@ import { UserProvider } from '../../providers/user/user';
 import { ToastController } from 'ionic-angular';
 import { ProductList } from '../products/productlist/productlist';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { Platform } from 'ionic-angular';
 
 @Component({
   selector: 'welcome',
@@ -21,19 +20,31 @@ export class WelcomePage {
   signup: Boolean = false;
   endpoint: string = localStorage.getItem("endpoint");
 
-  constructor(public plt: Platform, public navCtrl: NavController, public user: UserProvider, private toastCtrl: ToastController, private nativeStorage: NativeStorage) {
+  constructor(public navCtrl: NavController, public user: UserProvider, private toastCtrl: ToastController, private nativeStorage: NativeStorage) {
   	//Check if user was previously logged in.
-  	this.nativeStorage.getItem("token").then((data) =>
+  	// this.nativeStorage.getItem("token").then((data) =>
+   //  {
+   //    console.log("Already logged in.");
+   //    this.navCtrl.setRoot(ProductList);
+   //  },
+   //  (error) => {
+   //    console.log("Not logged in yet");
+   //  });
+
+  }
+
+  ionViewDidLoad() {
+    this.nativeStorage.getItem("token").then((data) =>
     {
       console.log("Already logged in.");
-      this.navCtrl.setRoot(ProductList);
+      this.navCtrl.setRoot(ProductList).then((val) => {
+        console.log(val);
+      },
+      err => console.log(err));
     },
     (error) => {
       console.log("Not logged in yet");
     });
-  		
-  	
-
   }
 
   doToast(message) {
@@ -55,10 +66,8 @@ export class WelcomePage {
       }
       if (this.response.status == 200) {
         this.nativeStorage.setItem("token", this.response.token).then(() => {
-          //this.navCtrl.setRoot(ProductList);
-          this.plt.ready().then(() => {
-            this.navCtrl.push(ProductList);
-          });
+          this.navCtrl.setRoot(ProductList).then((val) => console.log(val),
+            (err) => console.log(err));
         });
         
       }

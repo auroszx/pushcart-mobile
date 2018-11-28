@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ProductsProvider } from '../../../providers/products/products';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @Component({
   selector: 'productdescription',
@@ -14,18 +15,12 @@ export class ProductDescription {
   response: any;
   product_title: String;
   product_description: String;
-  product_image: string;
+  product_image: any = "";
   product_stock: number;
-  @ViewChild('fileinput') fileinput: ElementRef;
 
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider, private navParams: NavParams) {
-    this.products.getProductDetail(this.navParams.get('product_id')).subscribe(res => {
-      this.response = res;
-      this.product_title = this.response[0].product_title;
-      this.product_description = this.response[0].product_desc;
-      this.product_image = this.response[0].product_image;
-      this.product_stock = this.response[0].product_stock;
-    });
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider,
+               private navParams: NavParams, private imagePicker: ImagePicker) {
+    this.setProductInfo();
   }
 
   doToast(message) {
@@ -38,38 +33,56 @@ export class ProductDescription {
     toast.present();
   }
 
+  async setProductInfo() {
+    (await this.products.getProductDetail(this.navParams.get('product_id'))).subscribe(res => {
+      this.response = res;
+      this.product_title = this.response[0].product_title;
+      this.product_description = this.response[0].product_desc;
+      this.product_image = this.response[0].product_image;
+      this.product_stock = this.response[0].product_stock;
+    });
+  }
+
   toggleEdit() {
     this.editing = !this.editing;
   }
 
-  deleteProduct() {
-    this.products.deleteProduct(this.navParams.get('product_id')).subscribe(res => {
+  async deleteProduct() {
+    (await this.products.deleteProduct(this.navParams.get('product_id'))).subscribe(res => {
       this.navCtrl.pop();
     });
   }
 
-  editProduct() {
-    this.products.updateProduct(this.navParams.get('product_id'), this.product_title, this.product_description, this.product_image, this.product_stock).subscribe(res => {
+  async editProduct() {
+    (await this.products.updateProduct(this.navParams.get('product_id'), this.product_title, this.product_description, this.product_image, this.product_stock)).subscribe(res => {
       this.toggleEdit();
     });
   }
 
-  fakeClick() {
-    this.fileinput.nativeElement.click();
-  }
-
-  setBase64Image(image) {
-    this.readImage(image.target);
-  }
-
-  readImage(inputValue: any): void {
-    var file:File = inputValue.files[0];
-    var myReader = new FileReader();
-    myReader.onloadend = (e) => {
-      this.product_image = myReader.result;
-      //console.log(this.product_image);
-    }
-    myReader.readAsDataURL(file);
+  pickImage() {
+    this.imagePicker.hasReadPermission().then((hasPermission) => {
+      if (hasPermission) {
+        this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 1 }).then((results) => {
+          for (var i = 0; i < results.length; i++) {
+              this.product_image = 'data:image/jpeg;base64,' + results[i];
+          }
+        }, (err) => { console.log(err) });
+      }
+      else {
+        this.imagePicker.requestReadPermission().then((result) => {
+          if (result) {
+            console.log(result);
+            this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 1 }).then((results) => {
+              for (var i = 0; i < results.length; i++) {
+                  this.product_image = 'data:image/jpeg;base64,' + results[i];
+              }
+            }, (err) => { console.log(err) });
+          }
+        });
+      }
+        
+    })
+      
   }
 
 

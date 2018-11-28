@@ -17,8 +17,8 @@ export class MainMenu {
   }
 
   goToUser() {
-    this.close();
     this.navCtrl.push(UserInformation);
+    this.close();
   }
 
   close() {
