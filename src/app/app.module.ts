@@ -16,6 +16,7 @@ import { MainMenu } from '../pages/mainmenu/mainmenu';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { FormsModule } from '@angular/forms';
+import { CommentsProvider } from '../providers/comments/comments'; 
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FormsModule } from '@angular/forms';
     UserProvider,
     ProductsProvider,
     ImagePicker,
-    NativeStorage
+    NativeStorage,
+    CommentsProvider
   ]
 })
 export class AppModule {}

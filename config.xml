@@ -85,4 +85,5 @@
     <plugin name="cordova-plugin-multidex" spec="0.1.4" />
     <plugin name="cordova-plugin-telerik-imagepicker" spec="2.2.2" />
     <engine name="android" spec="7.1.4" />
+    <engine name="browser" spec="5.0.4" />
 </widget>

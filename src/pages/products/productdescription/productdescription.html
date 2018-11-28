@@ -6,13 +6,16 @@
         </ion-title>
 
         <ion-buttons end>
-            <button ion-button icon-only (click)="toggleEdit()" *ngIf="!editing">
+            <button ion-button icon-only (click)="toggleEdit()" *ngIf="!editing && user_id == product_user_id">
                 <ion-icon name="create"></ion-icon>
             </button>
-            <button ion-button icon-only (click)="deleteProduct()" *ngIf="!editing">
+            <button ion-button icon-only (click)="toggleEdit()" *ngIf="editing && user_id == product_user_id">
+                <ion-icon name="close"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="deleteProduct()" *ngIf="!editing && user_id == product_user_id">
                 <ion-icon name="trash"></ion-icon>
             </button>
-            <button ion-button icon-only (click)="editProduct()" *ngIf="editing">
+            <button ion-button icon-only (click)="editProduct()" *ngIf="editing && user_id == product_user_id">
                 <ion-icon name="checkmark"></ion-icon>
             </button>
         </ion-buttons>
@@ -38,11 +41,17 @@
     <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>
     
     <div class="comment-box">
-        <ion-card *ngFor="let comment of comments">
+        <h4>Comments about this product</h4>
+        <ion-card *ngFor="let comment of commentlist">
             <ion-card-content>
-                <strong>{{comment.product_comment}}</strong>
+                <strong>{{comment.user_username}}</strong>
+                <ion-buttons end>
+                    <button ion-button icon-only item-end outline (click)="deleteComment(comment.product_comment_id)" *ngIf="product_user_id == user_id || comment.user_id == user_id">
+                        <ion-icon name="close"></ion-icon>
+                    </button>
+                </ion-buttons>
                 <p>
-                    {{comment.user_username}}
+                    {{comment.product_comment}}
                 </p>
             </ion-card-content>
 

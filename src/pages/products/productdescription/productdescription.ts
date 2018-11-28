@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ProductsProvider } from '../../../providers/products/products';
 import { CommentsProvider } from '../../../providers/comments/comments';
+import { UserProvider } from '../../../providers/user/user';
 import { ImagePicker } from '@ionic-native/image-picker';
 
 @Component({
@@ -15,29 +15,30 @@ export class ProductDescription {
 
   editing: Boolean = false;
   response: any;
+  product_id: number;
   product_title: String;
   product_description: String;
   product_stock: number;
   product_image: any = "";
-  comment_content: String;
-  comments = [];
-  message: String;
-  url: String = 'http://'+ window.location.hostname + ':3000'; //Wat?
+  commentlist = [];
+  user_id: number = 0;
+  product_user_id: number = -1;
+  new_comment: string;
 
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider,
-               private navParams: NavParams, private imagePicker: ImagePicker) {
+               private navParams: NavParams, private imagePicker: ImagePicker, private user: UserProvider, private comments: CommentsProvider) {
     this.setProductInfo();
+    this.getUser();
   }
 
-  // Should be in provider
-  // 
-  // sendComment(){
-  //       if(this.message != ''){
-  //         this.http.post(this.url, {message : this.message}).subscribe((res : any) => {
-  //           this.message = '';
-  //         })
-  //       }
-  //     }
+  async sendComment() {
+    (await this.comments.createComment(this.product_id, this.new_comment)).subscribe(async res => {
+      this.response = res;
+      console.log(res);
+      this.new_comment = '';
+      await this.getComments(this.product_id);
+    });
+  }
 
   doToast(message) {
     let toast = this.toastCtrl.create({
@@ -49,14 +50,30 @@ export class ProductDescription {
     toast.present();
   }
 
-  async setProductInfo() {
-    (await this.products.getProductDetail(this.navParams.get('product_id'))).subscribe(res => {
+  async getUser() {
+    (await this.user.getUserData()).subscribe(res => {
       this.response = res;
+      this.user_id = this.response[0].user_id;
+    });
+  }
+
+  async setProductInfo() {
+    (await this.products.getProductDetail(this.navParams.get('product_id'))).subscribe(async res => {
+      this.response = res;
+      this.product_id = this.response[0].product_id;
       this.product_title = this.response[0].product_title;
       this.product_description = this.response[0].product_desc;
       this.product_image = this.response[0].product_image;
       this.product_stock = this.response[0].product_stock;
-      this.comment_content = this.response[0].comment_content;
+      this.product_user_id = this.response[0].user_id;
+      await this.getComments(this.product_id);
+    });
+  }
+
+  async getComments(product_id) {
+    (await this.comments.getAllComments(product_id)).subscribe(res => {
+      this.response = res;
+      this.commentlist = this.response.comments;
     });
   }
 
@@ -73,6 +90,14 @@ export class ProductDescription {
   async editProduct() {
     (await this.products.updateProduct(this.navParams.get('product_id'), this.product_title, this.product_description, this.product_image, this.product_stock)).subscribe(res => {
       this.toggleEdit();
+    });
+  }
+
+  async deleteComment(product_comment_id) {
+    (await this.comments.deleteComment(product_comment_id)).subscribe(async res => {
+      console.log(res);
+      await this.getComments(this.product_id);
+      this.doToast("Comment removed successfully");
     });
   }
 

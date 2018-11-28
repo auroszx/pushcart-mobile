@@ -1,0 +1,30 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-multidex": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-nativestorage": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-telerik-imagepicker": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "ve.auroszx.pushcart.mobile"
+    }
+  },
+  "dependent_plugins": {}
+}
