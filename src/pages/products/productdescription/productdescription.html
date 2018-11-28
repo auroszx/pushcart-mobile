@@ -25,8 +25,8 @@
 
 
 <ion-content padding>
-    <ion-input placeholder="Product title (required)" type="text" [(ngModel)]="product_title" *ngIf="editing"></ion-input>
-    <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description" readonly="editing"></ion-textarea>
+    <ion-label color="primary" *ngIf="editing">Title</ion-label>
+    <ion-input placeholder="Product title (required)" type="text" [(ngModel)]="product_title" *ngIf="editing" class="kindabigger"></ion-input>
     <!-- <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image" readonly="editing"></ion-input> -->
     <ion-row>
         <img [src]="product_image" *ngIf="product_image != ''" />
@@ -38,7 +38,11 @@
             </button>
         </div>
     </ion-row>
-    <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing"></ion-input>
+    <ion-label color="primary">Description</ion-label>
+    <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description" readonly="editing" class="kindabigger"></ion-textarea>
+    <ion-label color="primary">Stock (units)</ion-label>
+    <ion-input placeholder="Here is your stock" type="number" [(ngModel)]="product_stock" readonly="editing" class="kindabigger"></ion-input>
+
     
     <div class="comment-box">
         <h4>Comments about this product</h4>
@@ -61,6 +65,6 @@
 </ion-content>
 
 <ion-footer padding ng-if="!editing">
-    <ion-textarea [(ngModel)]="new_comment" type="text" placeholder="Comment ... " ng-if=""></ion-textarea>
+    <ion-textarea [(ngModel)]="new_comment" type="text" placeholder="Comment ... "></ion-textarea>
     <button ion-button small float-right round (click)="sendComment()">Send</button>
 </ion-footer>

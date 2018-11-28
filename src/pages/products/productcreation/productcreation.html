@@ -14,9 +14,9 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-input placeholder="Product title (required)" type="text" [(ngModel)]="product_title"></ion-input>
+    <ion-input placeholder="Product title (required)" type="text" [(ngModel)]="product_title" class="kindabigger"></ion-input>
 
-    <ion-textarea placeholder="Insert Product Description in here" [(ngModel)]="product_description"></ion-textarea>
+    <ion-textarea placeholder="Insert Product Description in here (required)" [(ngModel)]="product_description" class="kindabigger"></ion-textarea>
 
     <!-- <ion-input placeholder="Here goes your product image" [(ngModel)]="product_image"></ion-input> -->
     <ion-row>
@@ -26,5 +26,6 @@
         </div>
     </ion-row>
 
-    <ion-textarea placeholder="Here is your stock" [(ngModel)]="product_stock"></ion-textarea>
+    <ion-label color="primary">Stock (units)</ion-label>
+    <ion-input type="number" placeholder="Here is your stock (required)" min="0" [(ngModel)]="product_stock" class="kindabigger"></ion-input>
 </ion-content>
