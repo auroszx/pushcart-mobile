@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
+import { ToastController, ModalController } from 'ionic-angular';
 import { ProductCreation } from '../productcreation/productcreation';
 import { ProductDescription } from '../productdescription/productdescription';
 import { ProductsProvider } from '../../../providers/products/products';
 import { PopoverController } from 'ionic-angular';
 import { MainMenu } from '../../../pages/mainmenu/mainmenu';
+import { ToCartModal } from '../../../pages/tocartmodal/tocartmodal';
 
 @Component({
   selector: 'productlist',
@@ -19,7 +20,8 @@ export class ProductList {
   showSearch: boolean = false;
 
   constructor(public navCtrl: NavController, private products: ProductsProvider, 
-              private toastCtrl: ToastController, private popoverCtrl: PopoverController) {
+              private toastCtrl: ToastController, private popoverCtrl: PopoverController,
+              public modalCtrl: ModalController) {
 
     this.getProducts();
   }
@@ -74,8 +76,20 @@ export class ProductList {
     this.doToast("Feature not yet implemented");
   }
 
-  addToCart() {
-    this.doToast("Feature not yet implemented");
+  addToCart(product_name, product_id, product_stock) {
+    //this.doToast("Feature not yet implemented");
+    let profileModal = this.modalCtrl.create(ToCartModal, { product_name: product_name,
+                                                            product_id: product_id,
+                                                            product_stock: product_stock 
+                                                          }
+    );
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+      if (data.added) {
+        this.doToast("Product added to your cart");
+      }
+    });
+    profileModal.present();
   }
 
 

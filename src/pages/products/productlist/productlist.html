@@ -35,7 +35,7 @@
     <ion-list *ngFor="let product of productlist">
         <ion-row align-items-stretch>
             <ion-col>
-                <img [src]="product.product_image"/>
+                <img [src]="product.product_image" />
             </ion-col>
             <ion-col>
                 <ion-item (click)="editProduct(product.product_id)" *ngIf="productlist.length > 0">
@@ -46,7 +46,7 @@
             </ion-col>
             <ion-col>
                 <ion-buttons end>
-                    <button ion-button (click)="addToCart()">
+                    <button ion-button (click)="addToCart(product.product_title, product.product_id, product.product_stock)">
                         <ion-icon name="add"></ion-icon>To cart
                     </button>
                 </ion-buttons>

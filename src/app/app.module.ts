@@ -18,6 +18,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { FormsModule } from '@angular/forms';
 import { CommentsProvider } from '../providers/comments/comments';
 import { CartProvider } from '../providers/cart/cart'; 
+import { ToCartModal } from '../pages/tocartmodal/tocartmodal';
+import { SaleModal } from '../pages/salemodal/salemodal';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { CartProvider } from '../providers/cart/cart';
     ProductDescription,
     ProductCreation,
     UserInformation,
-    MainMenu
+    MainMenu,
+    ToCartModal,
+    SaleModal
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import { CartProvider } from '../providers/cart/cart';
     ProductDescription,
     ProductCreation,
     UserInformation,
-    MainMenu
+    MainMenu,
+    ToCartModal,
+    SaleModal
   ],
   providers: [
     SplashScreen,

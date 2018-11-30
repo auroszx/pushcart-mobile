@@ -8,7 +8,7 @@ export class CartProvider {
 	private endpointUrl: string;
 
 	constructor(public http: HttpClient, private nativeStorage: NativeStorage) {
-		this.endpointUrl = 'http://192.168.12.1:3000';
+		this.endpointUrl = 'http://localhost:3000';
         console.log(this.endpointUrl);
 	}
 

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-import { NavParams } from 'ionic-angular';
+import { NavParams, ModalController } from 'ionic-angular';
 import { ProductsProvider } from '../../../providers/products/products';
 import { CommentsProvider } from '../../../providers/comments/comments';
 import { UserProvider } from '../../../providers/user/user';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { ToCartModal } from '../../../pages/tocartmodal/tocartmodal';
 
 @Component({
   selector: 'productdescription',
@@ -26,7 +27,8 @@ export class ProductDescription {
   new_comment: string;
 
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, private products: ProductsProvider,
-               private navParams: NavParams, private imagePicker: ImagePicker, private user: UserProvider, private comments: CommentsProvider) {
+               private navParams: NavParams, private imagePicker: ImagePicker, private user: UserProvider, 
+               private comments: CommentsProvider, private modalCtrl: ModalController) {
     this.setProductInfo();
     this.getUser();
   }
@@ -123,8 +125,23 @@ export class ProductDescription {
         });
       }
         
-    })
+    });
       
+  }
+
+  addToCart() {
+    let profileModal = this.modalCtrl.create(ToCartModal, { product_name: this.navParams.get("product_name"), 
+                                                            product_id: this.navParams.get("product_id"),
+                                                            product_stock: this.navParams.get("product_stock")
+                                                          }
+    );
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+      if (data.added) {
+        this.doToast("Product added to your cart");
+      }
+    });
+    profileModal.present();
   }
 
 

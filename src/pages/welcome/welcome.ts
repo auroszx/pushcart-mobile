@@ -12,10 +12,10 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class WelcomePage {
 
   loggedIn = false;
-  username: String;
-  fullname: String;
-  email: String;
-  password: String;
+  username: String = "";
+  fullname: String = "";
+  email: String = "";
+  password: String = "";
   response: any;
   signup: Boolean = false;
   endpoint: string = localStorage.getItem("endpoint");
@@ -58,20 +58,25 @@ export class WelcomePage {
   }
 
   doLogin() {
-    this.user.login(this.username, this.password).subscribe(res => {
-      console.log(res);
-      this.response = res;
-      if (this.response.status >= 400) {
-        this.doToast(this.response.message);
-      }
-      if (this.response.status == 200) {
-        this.nativeStorage.setItem("token", this.response.token).then(() => {
-          this.navCtrl.setRoot(ProductList).then((val) => console.log(val),
-            (err) => console.log(err));
-        });
-        
-      }
-    });
+    if (!(this.password == "" && this.username != "" && !this.signup)) {
+      this.user.login(this.username, this.password).subscribe(res => {
+        console.log(res);
+        this.response = res;
+        if (this.response.status >= 400) {
+          this.doToast(this.response.message);
+        }
+        if (this.response.status == 200) {
+          this.nativeStorage.setItem("token", this.response.token).then(() => {
+            this.navCtrl.setRoot(ProductList).then((val) => console.log(val),
+              (err) => console.log(err));
+          });
+          
+        }
+      });
+    }
+    else {
+      this.doToast("Please type your password");
+    }
 
   }
 
