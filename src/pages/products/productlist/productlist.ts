@@ -7,6 +7,7 @@ import { ProductsProvider } from '../../../providers/products/products';
 import { PopoverController } from 'ionic-angular';
 import { MainMenu } from '../../../pages/mainmenu/mainmenu';
 import { ToCartModal } from '../../../pages/tocartmodal/tocartmodal';
+import { Cart } from '../../../pages/cart/cart';
 
 @Component({
   selector: 'productlist',
@@ -73,23 +74,23 @@ export class ProductList {
   }
 
   goToCart() {
-    this.doToast("Feature not yet implemented");
+    this.navCtrl.push(Cart);
   }
 
   addToCart(product_name, product_id, product_stock) {
     //this.doToast("Feature not yet implemented");
-    let profileModal = this.modalCtrl.create(ToCartModal, { product_name: product_name,
+    let addModal = this.modalCtrl.create(ToCartModal, { product_name: product_name,
                                                             product_id: product_id,
                                                             product_stock: product_stock 
                                                           }
     );
-    profileModal.onDidDismiss(data => {
+    addModal.onDidDismiss(data => {
       console.log(data);
       if (data.added) {
         this.doToast("Product added to your cart");
       }
     });
-    profileModal.present();
+    addModal.present();
   }
 
 

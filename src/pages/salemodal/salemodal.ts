@@ -17,9 +17,10 @@ export class SaleModal {
     this.product_stock = this.params.get("product_stock");
   }
 
-  async addToCart() {
-    (await this.cart.addProductToCart(this.params.get("product_id"), this.user_product_qty)).subscribe(res => {
-      this.viewCtrl.dismiss({ added: true});
+  async buyProducts() {
+    (await this.cart.buyProductsFromCart()).subscribe(res => {
+      this.cart.clearCart();
+      this.viewCtrl.dismiss({ completed: true});
     });
   }
 
@@ -32,7 +33,7 @@ export class SaleModal {
   }  
 
   close() {
-    this.viewCtrl.dismiss({ added: false});
+    this.viewCtrl.dismiss({ completed: false});
   }
   
 }

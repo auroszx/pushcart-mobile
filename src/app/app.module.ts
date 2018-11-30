@@ -20,6 +20,7 @@ import { CommentsProvider } from '../providers/comments/comments';
 import { CartProvider } from '../providers/cart/cart'; 
 import { ToCartModal } from '../pages/tocartmodal/tocartmodal';
 import { SaleModal } from '../pages/salemodal/salemodal';
+import { Cart } from '../pages/cart/cart';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SaleModal } from '../pages/salemodal/salemodal';
     UserInformation,
     MainMenu,
     ToCartModal,
-    SaleModal
+    SaleModal,
+    Cart
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ import { SaleModal } from '../pages/salemodal/salemodal';
     UserInformation,
     MainMenu,
     ToCartModal,
-    SaleModal
+    SaleModal,
+    Cart
   ],
   providers: [
     SplashScreen,

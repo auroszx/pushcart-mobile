@@ -15,7 +15,7 @@ export class UserProvider {
 
   constructor(public http: HttpClient, private nativeStorage: NativeStorage) {
     // this.endpointUrl = 'http://'+ window.location.hostname + ':3000';
-    this.endpointUrl = 'http://localhost:3000';
+    this.endpointUrl = 'http://192.168.12.1:3000';
     console.log(this.endpointUrl);
   }
 

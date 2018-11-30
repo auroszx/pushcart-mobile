@@ -8,7 +8,7 @@ export class CartProvider {
 	private endpointUrl: string;
 
 	constructor(public http: HttpClient, private nativeStorage: NativeStorage) {
-		this.endpointUrl = 'http://localhost:3000';
+		this.endpointUrl = 'http://192.168.12.1:3000';
         console.log(this.endpointUrl);
 	}
 
@@ -65,7 +65,7 @@ export class CartProvider {
 	}
 
 
-	async buyProductsFromCart(){
+	async buyProductsFromCart() {
         const httpOptions = {
 	      headers: new HttpHeaders({
 	        'Authorization': await this.nativeStorage.getItem("token"),
@@ -74,6 +74,24 @@ export class CartProvider {
 	    };
 
         return this.http.get(this.endpointUrl+'/cart/buy', httpOptions);
+    }
+
+    async setCartQuantity(user_wishlist_id, user_product_qty) {
+
+    	const httpOptions = {
+	      headers: new HttpHeaders({
+	        'Authorization': await this.nativeStorage.getItem("token"),
+	        'Content-Type':'application/json'
+	      })
+	    };
+
+	    let data = {
+			user_wishlist_id: user_wishlist_id,
+	        user_product_qty: user_product_qty
+	    };
+
+	    return this.http.put(this.endpointUrl+'/cart/setqty', JSON.stringify(data), httpOptions);
+
     }
 
 
