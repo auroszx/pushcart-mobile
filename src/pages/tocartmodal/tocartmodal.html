@@ -1,24 +1,15 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            Add this product to your cart
+            Buy products
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-	<ion-label>Quantity</ion-label>
-	<ion-row>
-		<button ion-button icon-only (click)="decreaseQty()" [disabled]="user_product_qty == 0">
-        	<ion-icon name="remove"></ion-icon>
-        </button>
-        <p><strong>{{user_product_qty}}</strong></p>
-        <button ion-button icon-only (click)="increaseQty()" [disabled]="user_product_qty == product_stock">
-            <ion-icon name="add"></ion-icon>
-        </button>
-	</ion-row>
-	<p>Are you sure you want to add <strong>{{product_name}}</strong> to your cart?</p>
+	<h5>We'll begin to process your products.</h5>
+	<p>Are you sure you want to continue?</p>
 
-	<button ion-button block (click)="addToCart()">Yes</button>
-	<button ion-button color="danger" block (click)="close()">No</button>
+	<button ion-button block (click)="addToCart()">Yes, go ahead</button>
+	<button ion-button color="danger" block (click)="close()">No, I'm not ready yet</button>
 </ion-content>

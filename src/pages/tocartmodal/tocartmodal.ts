@@ -8,13 +8,10 @@ import { CartProvider } from '../../providers/cart/cart';
 
 export class ToCartModal {
 
-  user_product_qty: number = 0;
-  product_name: string = "";
-  product_stock: number = 0;
+  products: any = [];
 
   constructor(public viewCtrl: ViewController, private navCtrl: NavController, private cart: CartProvider, private params: NavParams) {
-    this.product_name = this.params.get("product_name");
-    this.product_stock = this.params.get("product_stock");
+    
   }
 
   async addToCart() {
@@ -23,16 +20,6 @@ export class ToCartModal {
     });
   }
 
-  increaseQty() {
-    this.user_product_qty++;
-  }
-
-  decreaseQty() {
-    this.user_product_qty--;
-  }  
-
-  close() {
-    this.viewCtrl.dismiss({ added: false});
-  }
+  
   
 }
