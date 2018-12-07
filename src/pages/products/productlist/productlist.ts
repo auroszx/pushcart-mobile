@@ -4,6 +4,7 @@ import { ToastController, ModalController } from 'ionic-angular';
 import { ProductCreation } from '../productcreation/productcreation';
 import { ProductDescription } from '../productdescription/productdescription';
 import { ProductsProvider } from '../../../providers/products/products';
+import { UserProvider } from '../../../providers/user/user';
 import { PopoverController } from 'ionic-angular';
 import { MainMenu } from '../../../pages/mainmenu/mainmenu';
 import { ToCartModal } from '../../../pages/tocartmodal/tocartmodal';
@@ -19,10 +20,11 @@ export class ProductList {
   productlist: any = [];
   response: any;
   showSearch: boolean = false;
+  user_id: number = 0;
 
   constructor(public navCtrl: NavController, private products: ProductsProvider, 
               private toastCtrl: ToastController, private popoverCtrl: PopoverController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController, private user: UserProvider) {
 
     this.getProducts();
   }
@@ -57,9 +59,10 @@ export class ProductList {
   }
 
   async getProducts() {
-    (await this.products.getAllProducts(this.search)).subscribe(res => {
+    (await this.products.getAllProducts(this.search)).subscribe(async res => {
       this.response = res;
       this.productlist = this.response;
+      await this.getUser();
     });
   }
 
@@ -91,6 +94,13 @@ export class ProductList {
       }
     });
     addModal.present();
+  }
+
+  async getUser() {
+    (await this.user.getUserData()).subscribe(res => {
+      this.response = res;
+      this.user_id = this.response[0].user_id;
+    });
   }
 
 

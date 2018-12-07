@@ -46,8 +46,11 @@
             </ion-col>
             <ion-col>
                 <ion-buttons end>
-                    <button ion-button (click)="addToCart(product.product_title, product.product_id, product.product_stock)">
+                    <button ion-button (click)="addToCart(product.product_title, product.product_id, product.product_stock)" *ngIf="product.user_id != user_id && product.product_stock > 0">
                         <ion-icon name="add"></ion-icon>To cart
+                    </button>
+                    <button ion-button (click)="addToCart(product.product_title, product.product_id, product.product_stock)" *ngIf="product.user_id != user_id && product.product_stock == 0" disabled>
+                        Unavailable
                     </button>
                 </ion-buttons>
             </ion-col>

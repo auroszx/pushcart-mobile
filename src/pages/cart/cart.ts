@@ -66,6 +66,7 @@ export class Cart {
     saleModal.onDidDismiss(data => {
       console.log(data);
       if (data.completed) {
+        this.getCart();
         this.doToast("Done! Thank you for shopping!");
       }
     });
